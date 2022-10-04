@@ -76,4 +76,10 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
         cy.fillMandatoryFieldsAndSubmit('Leonardo','Luz','leonardo@hotmail.com','119755665','teste'); // comando costomizado.
         cy.get('.success').should('be.visible');
     })
+    it('selecione um produto (YouTube) por seu texto',()=>{
+         cy.get('#product')
+         .select('YouTube')
+         .should('have.value','youtube')
+    })    
+
 })
