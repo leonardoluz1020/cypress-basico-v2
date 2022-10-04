@@ -88,13 +88,21 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
     })
     it('selecione um produto (blog) por seu índice',()=>{
         cy.get('#product')
-        .select(2)
+        .select(1)
         .should('have.value','blog')
     })
     it('marca o tipo de atendimento "Feedback"',()=>{
         cy.get('input[type="radio"][value="feedback"]') // identificando o elemento input
         .check() // encadeou o check para marcar o radio button ou seja da check no feedback
         .should('have.value','feedback'); // encadeado o should para verificar se o valor foi selecionado (feedback)
+    })
+    it('marca cada tipo de atendimento',()=>{
+        cy.get('input[type="radio"]') // usando o input para verificar a quantidade de elemento de do type="radio"
+        .should('have.length',3) // varificando e confirmando a quantidade de elementos 
+        .each(function($radio){ // usando a função .each para passar em cada um dos elementos 
+            cy.wrap($radio).check(); // com o comando cy.wrap empacotamos o elemento para mandar comandos de testes ex .should .check
+            cy.wrap($radio).should('be.checked');
+        })
     })
 
 })
