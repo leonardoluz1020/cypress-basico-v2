@@ -91,8 +91,10 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
         .select(2)
         .should('have.value','blog')
     })
-    it.only('marca o tipo de atendimento "Feedback"',()=>{
-        
+    it('marca o tipo de atendimento "Feedback"',()=>{
+        cy.get('input[type="radio"][value="feedback"]') // identificando o elemento input
+        .check() // encadeou o check para marcar o radio button ou seja da check no feedback
+        .should('have.value','feedback'); // encadeado o should para verificar se o valor foi selecionado (feedback)
     })
 
 })
