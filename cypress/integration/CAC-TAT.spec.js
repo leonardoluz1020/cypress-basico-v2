@@ -81,5 +81,18 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
          .select('YouTube')
          .should('have.value','youtube')
     })    
+    it('seleciona um produto (mentoria) por seu valor (value)',()=>{
+        cy.get('#product')
+        .select('mentoria')
+        .should('have.value','mentoria')
+    })
+    it('selecione um produto (blog) por seu índice',()=>{
+        cy.get('#product')
+        .select(2)
+        .should('have.value','blog')
+    })
+    it.only('marca o tipo de atendimento "Feedback"',()=>{
+        
+    })
 
 })
