@@ -110,8 +110,16 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
         .selectFile('cypress/fixtures/example.json') // Usamos a funcionalidade do .selectFile para passar um arquivo ex do example.json 
         .should((input)=>{ // encaminhou um should com uma função de callbackFn (Função) para receber como elemento o input recebido pelo cy.get.
             expect(input[0].files[0].name).to.equal('example.json') // com o expect se faz uma verificação no input[0] que contem um .file [0] e nele contem um .nome que é verificado pelo .to.equal('')o seu nome "example.json".            
-        })           
-        
+        })       
+    })
+    it('seleciona um arquivo simulando um drag-and-drop',()=>{
+        cy.get('input[type="file"]#file-upload')  // fez um cy.get para pegar o input do type file 
+        .should('not.have.value') // encaminho um should com "not.have.value" para verificar que não tem nenhum valor dentro
+        .selectFile('cypress/fixtures/example.json', {action: 'drag-drop'}) // usando o { action: 'drag-drop'} é simular um arrasto do arquivo para o .selectFile.   
+        .should((input)=>{ // encaminhou um should com uma função de callbackFn (Função) para receber como elemento o input recebido pelo cy.get.
+            expect(input[0].files[0].name).to.equal('example.json') // com o expect se faz uma verificação no input[0] que contem um .file [0] e nele contem um .nome que é verificado pelo .to.equal('')o seu nome "example.json".            
+        })
+
     })
 
 })
