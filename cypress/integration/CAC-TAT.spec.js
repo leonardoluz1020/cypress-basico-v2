@@ -90,36 +90,64 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
     })
     it('marca cada tipo de atendimento', () => {
         cy.get('input[type="radio"]') // usando o input para verificar a quantidade de elemento de do type="radio"
+
             .should('have.length', 3) // varificando e confirmando a quantidade de elementos 
+
             .each(function ($radio) { // usando a função .each para passar em cada um dos elementos 
+
                 cy.wrap($radio).check(); // com o comando cy.wrap empacotamos o elemento para mandar comandos de testes ex .should .check
-                cy.wrap($radio).should('be.checked');
+
+                cy.wrap($radio).should('be.checked'); // com o .should no wrap $radio se verifica se esta checado o radio.
             })
     })
     it('marca ambos checkboxes, depois desmarca o último', () => {
-        cy.get('input[type="checkbox"]')
-            .check()
-            .should('be.checked')
-            .last()
-            .uncheck()
-            .should('not.be.checked');
+        cy.get('input[type="checkbox"]') // com o cy.get para pegar os elementos do input type checkbox
+            .check() // marca o elemento com um check
+            .should('be.checked') // verifica se está marcado o elemento
+            .last() //vai para o ultimo elemento da lista de checkbox
+            .uncheck() // desmarca o ultimo elemento devido esta está listado com .last
+            .should('not.be.checked'); // verifica se não está marcado
     })
     it('seleciona um arquivo da pasta fixtures', () => {
         cy.get('input[type="file"]#file-upload')  // fez um cy.get para pegar o input do type file 
+
         .should('not.have.value') // encaminho um should com "not.have.value" para verificar que não tem nenhum valor dentro
-        .selectFile('cypress/fixtures/example.json') // Usamos a funcionalidade do .selectFile para passar um arquivo ex do example.json 
+
+        .selectFile('cypress/fixtures/example.json') // Usamos a funcionalidade do .selectFile para passar um arquivo ex do example.json
+
         .should((input)=>{ // encaminhou um should com uma função de callbackFn (Função) para receber como elemento o input recebido pelo cy.get.
-            expect(input[0].files[0].name).to.equal('example.json') // com o expect se faz uma verificação no input[0] que contem um .file [0] e nele contem um .nome que é verificado pelo .to.equal('')o seu nome "example.json".            
+
+            expect(input[0].files[0].name).to.equal('example.json') // com o expect se faz uma verificação no input[0] que contem um .file [0] e nele contem um .nome que é verificado pelo .to.equal('')o seu nome "example.json".
+                        
         })       
     })
     it('seleciona um arquivo simulando um drag-and-drop',()=>{
         cy.get('input[type="file"]#file-upload')  // fez um cy.get para pegar o input do type file 
+
         .should('not.have.value') // encaminho um should com "not.have.value" para verificar que não tem nenhum valor dentro
+
         .selectFile('cypress/fixtures/example.json', {action: 'drag-drop'}) // usando o { action: 'drag-drop'} é simular um arrasto do arquivo para o .selectFile.   
+
         .should((input)=>{ // encaminhou um should com uma função de callbackFn (Função) para receber como elemento o input recebido pelo cy.get.
-            expect(input[0].files[0].name).to.equal('example.json') // com o expect se faz uma verificação no input[0] que contem um .file [0] e nele contem um .nome que é verificado pelo .to.equal('')o seu nome "example.json".            
+
+            expect(input[0].files[0].name).to.equal('example.json') // com o expect se faz uma verificação no input[0] que contem um .file [0] e nele contem um .nome que é verificado pelo .to.equal('')o seu nome "example.json". 
+
         })
 
+    })
+    it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias',()=>{
+
+        cy.fixture('example.json').as('sampleFile') // Podemos usar o cy.fixture e passar o nome do arquivo dentro e com o .as dá um nome a esse arquivo para ser usado como @sampleFile.
+                  
+        cy.get('input[type="file"]#file-upload')  // fez um cy.get para pegar o input do type file 
+        
+        .selectFile('@sampleFile') // com o nome do .as podemos apenas passar o nome para o .selectFile sem necessidade de passar o endereço do arquivo.
+        
+        .should((input)=>{ // encaminhou um should com uma função de callbackFn (Função) para receber como elemento o input recebido pelo cy.get.
+           
+            expect(input[0].files[0].name).to.equal('example.json') // com o expect se faz uma verificação no input[0] que contem um .file [0] e nele contem um .nome que é verificado pelo .to.equal('')o seu nome "example.json". 
+        
+        })
     })
 
 })
