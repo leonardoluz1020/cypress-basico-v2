@@ -104,5 +104,12 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
             cy.wrap($radio).should('be.checked');
         })
     })
+    it.only('marca ambos checkboxes, depois desmarca o último',()=>{
+        cy.get('input[type="checkbox"]')
+        .check()
+        .last()
+        .uncheck()
+        .should('not.be.checked');
+    })
 
 })
