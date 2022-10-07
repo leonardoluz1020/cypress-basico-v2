@@ -149,5 +149,17 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
         
         })
     })
+    it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique',()=>{
+        cy.get('#privacy a') // pegamos o elementos do tipo ancora com id #privacy.
+        .should('have.attr', 'target', '_blank') // verificamos se tem o valor o atributo do tipo  target="_blanck" usando o should 'have.attr','target','blank'.
+        
+    })
+    it('acessa a página da política de privacidade removendo o target e então clicanco no link',()=>{
+        cy.get('#privacy a') // pegamos o elementos do tipo ancora com id #privacy.
+        .should('have.attr', 'target', '_blank') // verificamos se tem o valor o atributo do tipo  target="_blanck" usando o should 'have.attr','target','blank'.
+        .invoke('removeAttr', 'target') // removemos o atributo target com o .invoke para não abrir em outra pagina
+        .click(); // e clicamos nela para abrir a pagina sem a necessidade de abrir outra aba devido a função target="_blank" estar removida.
+        cy.contains('Talking About Testing').should('be.visible'); // usamos um cy.contains para verificar se existe o nome do texto descrito e should com a função be.visible para verificar se está vísivel 
+    }) 
 
 })
