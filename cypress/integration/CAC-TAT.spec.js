@@ -46,7 +46,7 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
         cy.get('.error').should('not.be.visible');// verificando a mensagem que de .error se sumiu
 
     })
-    Cypress._.times(5, () => {
+    Cypress._.times(3, () => {
         it('Campo telefone continua vazio quando preenchido com valor não numerico', () => {
             cy.get('#phone') // acesso ao imput da lista de telefone 
                 .type('AbCdEfGhIjHLmNoPqRsTuVxZ') // escrevendo na lista numerica as letras 
@@ -200,5 +200,32 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
             .and('contain', 'Valide os campos obrigatórios!')// usando o and para continuar com a verificação se contain a mensagem descrita
             .invoke('hide')// usando o metodo .invoke chamadno um 'hide' para esconder o elemento 
             .should('not.be.visible')// verificando se o elemento não está visível
+    })
+    it('preenche a area de texto usando o comando invoke',()=>{
+
+    // constante recebe                     valor x 20  ele mesmo    
+         const longText = Cypress._.repeat('0123456789',20); //Usando o repeat para criar um texto longo
+         cy.get('#open-text-area')// acessando o text-area
+         .invoke('val',longText)// usando o invoke para colocar o valor da constante longText
+         .should('have.value',longText);// verificando se o texto está com mesmo valor
+    })
+    it('faz uma requisição HTTP',()=>{
+      cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html') // com request podemos fazer requisição a nivel de rede
+      .should(function(response) { // usando o should para fazer verificações junto com uma função de callback que recebe a resposta da requisição, 
+        const {status, statusText, body} = response // com a resposta da requisição estamos desestruturando o status, statusText e o body
+        expect(status).to.equal(200) // com o expect verifica no status se é igual a 200
+        expect(statusText).to.equal('OK')// com o expect verifica no statusText se é igual 'OK'
+        expect(body).to.include('CAC TAT');// com o expect verifica no body se ta inclui a frase 'CAC TAT'
+      })
+    })
+    it('encontra o gato escondido', ()=>{
+        cy.get('#cat')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        cy.get('#title')
+        .invoke('text','CAT TAT')
+        cy.get('#subtitle')
+        .invoke('text','Eu Amo minha 👨‍👩‍👦')
     })
 })
