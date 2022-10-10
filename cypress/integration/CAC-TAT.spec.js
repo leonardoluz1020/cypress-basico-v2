@@ -38,18 +38,18 @@ describe('Cebtral de Atendimento ao Cliente TAT', function () {
 
     })
     it('Campo telefone continua vazio quando preenchido com valor não numerico', () => {
-        cy.get('#phone')
-            .type('AbCdEfGhIjHLmNoPqRsTuVxZ')
-            .should('have.value', '');
+        cy.get('#phone') // acesso ao imput da lista de telefone 
+            .type('AbCdEfGhIjHLmNoPqRsTuVxZ') // escrevendo na lista numerica as letras 
+            .should('have.value', ''); // verificando se a caracteres no identificador #phone 
     })
     it('exibe mensagem de erro quando o telefone se torna obrigatório mas não é preenchido antes do envio do formulário', () => {
 
-        cy.get('#firstName').type('Leonardo');
-        cy.get('#lastName').type('Luz');
-        cy.get('#email').type('leonardoluz10@hotmail.com');
-        cy.get('#phone-checkbox').check();
-        cy.get('#open-text-area').type('teste');
-        cy.contains('button', 'Enviar').click();
+        cy.get('#firstName').type('Leonardo');// colocando o nome no identificador 
+        cy.get('#lastName').type('Luz'); // colocando sobrenome no identificador
+        cy.get('#email').type('leonardoluz10@hotmail.com');// colocando email no identificador
+        cy.get('#phone-checkbox').check();// marcando o check-box do identificador phone 
+        cy.get('#open-text-area').type('teste');// escrevendo no text-area 
+        cy.contains('button', 'Enviar').click();// clicando no button enviar 
 
     })
     it('preenche e limpa os campos nome, sobrenome, email e telefone', () => {
