@@ -5,7 +5,7 @@
 // check out the link below and learn how to write your first test:
 // https://on.cypress.io/writing-first-test
 
-describe('Cebtral de Atendimento ao Cliente TAT', function () {
+describe('Central de Atendimento ao Cliente TAT', function () {
     const THREE_SECONDS_IN_MS = 3000;
     beforeEach(() => {
         cy.visit('./src/index.html');
