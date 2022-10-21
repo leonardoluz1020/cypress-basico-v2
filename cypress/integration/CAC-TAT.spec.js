@@ -109,7 +109,7 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     })
     it('selecione um produto (blog) por seu índice', () => {
         cy.get('#product')
-            .select(1)
+            .select('blog')
             .should('have.value', 'blog')
     })
     it('marca o tipo de atendimento "Feedback"', () => {
